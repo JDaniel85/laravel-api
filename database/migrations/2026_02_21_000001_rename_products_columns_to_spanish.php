@@ -9,10 +9,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->renameColumn('code',           'codigo');
-            $table->renameColumn('name',           'nombre');
-            $table->renameColumn('price',          'precio');
-            $table->renameColumn('tax_percentage', 'porcentaje_impuesto');
+            // Verificar si la columna existe antes de renombrar
+            if (Schema::hasColumn('products', 'code')) {
+                $table->renameColumn('code', 'codigo');
+            }
+            if (Schema::hasColumn('products', 'name')) {
+                $table->renameColumn('name', 'nombre');
+            }
+            if (Schema::hasColumn('products', 'price')) {
+                $table->renameColumn('price', 'precio');
+            }
+            if (Schema::hasColumn('products', 'tax_percentage')) {
+                $table->renameColumn('tax_percentage', 'porcentaje_impuesto');
+            }
         });
     }
 
